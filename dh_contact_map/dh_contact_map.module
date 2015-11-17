@@ -39,7 +39,7 @@ function _dh_contact_map_page_callback() {
   $form = array();
   $form['contact_map'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Chardug Settings'),
+    '#title' => t('Contact Map Settings'),
     '#collapsible' => true,
     '#collapsed' => false,
   );
@@ -91,15 +91,7 @@ function dh_contact_map_theme($existing, $type, $theme, $path){
     'contact_map_block_1' => array(
       'template' => 'contact-map-block',
       'variables'=> array(),
-    ),
-    'contact_map_block_2' => array(
-      'template' => 'contact-map-block--2',
-      'variables'=> array(),
-    ),
-    'contact_map_block_3' => array(
-      'template' => 'contact-map-block--3',
-      'variables'=> array(),
-    ),
+    )
   );
 }
 
@@ -109,12 +101,6 @@ function dh_contact_map_theme($existing, $type, $theme, $path){
 function dh_contact_map_block_info() {
   $blocks['contact_map'] = array(
     'info' => t('Contact Map'),
-  );
-  $blocks['contact_map_2'] = array(
-    'info' => t('Contact Map 2'),
-  );
-  $blocks['contact_map_3'] = array(
-    'info' => t('Contact Map 3'),
   );
 
   return $blocks;
@@ -128,72 +114,13 @@ function dh_contact_map_block_view($delta = '') {
 
   switch ($delta) {
     case 'contact_map':
-      // array(
-      //   '#markup' => theme('responsive_contact_map'dh_contact_map_content(),
-      //   '#prefix' => '<div id="contact-map">',
-      //   '#suffix' => '</div>',
-      //   '#attached' => array(
-      //     'js' => array(
-      //       drupal_get_path('module', 'dh_contact_map') . '/dh_contact_map.js',
-      //     ),
-      //     'css' => array(
-      //       drupal_get_path('module', 'dh_contact_map') . '/dh_contact_map.css',
-      //     ),
-      //   ),
-
-      $variables = dh_contact_map_content();
       $block['subject'] = 'Contact Map';
-      $block['content'] = theme('contact_map_block_1', $variables);
+      $block['content'] = theme('contact_map_block_1', array());
 
-      break;
-    case 'contact_map_2':
-      $variables = dh_contact_map_2_content();
-      $block['subject'] = 'Contact Map 2';
-      $block['content'] = theme('contact_map_block_2', $variables);
-      break;
-
-    case 'contact_map_3':
-      $variables = dh_contact_map_3_content();
-      $block['subject'] = 'Contact Map 3';
-      $block['content'] = theme('contact_map_block_3', $variables);
       break;
   }
 
   return $block;
-  // return theme('MYMODULE_BLOCK_FUNCTION_ITEMS', array('items' => $items));
-}
-
-/**
- * Block content generation for map 1.
- */
-function dh_contact_map_content() {
-  $content = array();
-  $content['title'] = 'Contact Map';
-  $content['markup'] = '<pre>==== Map will go here ====</pre>';
-
-  return $content;
-}
-
-/**
- * Block content generation for map 2.
- */
-function dh_contact_map_2_content() {
-  $content = array();
-  $content['title'] = 'Contact Map 2';
-  $content['markup'] = '<pre>==== Map 2 will go here ====</pre>';
-
-  return $content;
-}
-
-/**
- * Block content generation for map 3.
- */
-function dh_contact_map_3_content() {
-  $content = array();
-  $content['title'] = 'Contact Map 3';
-  $content['markup'] = '<pre>==== Map 3 will go here ====</pre>';
-
-  return $content;
 }
 
 /**
@@ -203,235 +130,322 @@ function dh_contact_map_form_map_1 () {
   $form = array();
 
   $regions = array(
-    '3' => t('Mexico, Central and South America'),
-    '9' => t('Alabama'),
-    '3' => t('Alaska'),
-    '28' => t('Arizona'),
-    '9' => t('Arkansas '),
-    '16' => t('California (Northern)'),
-    '14' => t('California (Southern)'),
-    '18' => t('Colorado'),
-    '20' => t('Connecticut'),
-    '20' => t('Delaware'),
-    '4' => t('Florida (Northern) '),
-    '2' => t('Florida (Southern)'),
-    '7' => t('Georgia (Northern)'),
-    '4' => t('Georgia (Southern)'),
-    '17' => t('Hawaii'),
-    '18' => t('Idaho'),
-    '6' => t('Illinois (Northern)'),
-    '12' => t('Illinois (Southern)'),
-    '11' => t('Indiana'),
-    '12' => t('Iowa'),
-    '23' => t('Kansas'),
-    '11' => t('Kentucky'),
-    '9' => t('Louisiana'),
-    '20' => t('Maine'),
-    '20' => t('Maryland'),
-    '20' => t('Massachusetts'),
-    '11' => t('Michigan'),
-    '8' => t('Minnesota'),
-    '9' => t('Mississippi'),
-    '12' => t('Missouri'),
-    '18' => t('Montana'),
-    '23' => t('Nebraska'),
-    '16' => t('Nevada (Northern)'),
-    '28' => t('Nevada (Southern)'),
-    '20' => t('New Hampshire'),
-    '20' => t('New Jersey'),
-    '28' => t('New Mexico'),
-    '20' => t('New York'),
-    '7' => t('North Carolina'),
-    '8' => t('North Dakota'),
-    '11' => t('Ohio'),
-    '23' => t('Oklahoma'),
-    '17' => t('Oregon'),
-    '20' => t('Pennsylvania'),
-    '20' => t('Rhode Island'),
-    '7' => t('South Carolina'),
-    '8' => t('South Dakota'),
-    '7' => t('Tennessee (Eastern)'),
-    '9' => t('Tennessee (Western)'),
-    '21' => t('Texas'),
-    '18' => t('Utah'),
-    '20' => t('Vermont'),
-    '11' => t('Virginia'),
-    '17' => t('Washington'),
-    '11' => t('West Virginia'),
-    '8' => t('Wisconsin'),
-    '18' => t('Wyoming'),
+    '1_3' => t('Mexico, Central and South America'),
+    '2_9' => t('Alabama'),
+    '3_3' => t('Alaska'),
+    '4_28' => t('Arizona'),
+    '5_9' => t('Arkansas '),
+    '6_16' => t('California (Northern)'),
+    '7_14' => t('California (Southern)'),
+    '8_18' => t('Colorado'),
+    '9_20' => t('Connecticut'),
+    '10_20' => t('Delaware'),
+    '11_4' => t('Florida (Northern) '),
+    '12_2' => t('Florida (Southern)'),
+    '13_7' => t('Georgia (Northern)'),
+    '14_4' => t('Georgia (Southern)'),
+    '15_14' => t('Hawaii'),
+    '16_18' => t('Idaho'),
+    '17_6' => t('Illinois (Northern)'),
+    '18_12' => t('Illinois (Southern)'),
+    '19_11' => t('Indiana'),
+    '20_12' => t('Iowa'),
+    '21_23' => t('Kansas'),
+    '22_11' => t('Kentucky'),
+    '23_9' => t('Louisiana'),
+    '24_20' => t('Maine'),
+    '25_20' => t('Maryland'),
+    '26_20' => t('Massachusetts'),
+    '27_11' => t('Michigan'),
+    '28_8' => t('Minnesota'),
+    '29_9' => t('Mississippi'),
+    '30_12' => t('Missouri'),
+    '31_18' => t('Montana'),
+    '32_23' => t('Nebraska'),
+    '33_16' => t('Nevada (Northern)'),
+    '34_28' => t('Nevada (Southern)'),
+    '35_20' => t('New Hampshire'),
+    '36_20' => t('New Jersey'),
+    '37_28' => t('New Mexico'),
+    '38_20' => t('New York'),
+    '39_7' => t('North Carolina'),
+    '40_8' => t('North Dakota'),
+    '41_11' => t('Ohio'),
+    '42_23' => t('Oklahoma'),
+    '43_17' => t('Oregon'),
+    '44_20' => t('Pennsylvania'),
+    '45_20' => t('Rhode Island'),
+    '46_7' => t('South Carolina'),
+    '47_8' => t('South Dakota'),
+    '48_7' => t('Tennessee (Eastern)'),
+    '49_9' => t('Tennessee (Western)'),
+    '50_21' => t('Texas'),
+    '51_18' => t('Utah'),
+    '52_20' => t('Vermont'),
+    '53_11' => t('Virginia'),
+    '54_17' => t('Washington'),
+    '55_11' => t('West Virginia'),
+    '56_8' => t('Wisconsin'),
+    '57_18' => t('Wyoming'),
   );
-
-  $form['selected_region'] = array(
-   '#type' => 'select',
-   '#title' => t('Select Region'),
-   '#options' => $regions,
-   '#description' => t('Select a region to view region contact.'),
-  );
-
-  return $form;
-}
-
-/**
- * Select form for Map 2.
- */
-function dh_contact_map_form_map_2 () {
-  $form = array();
 
   $regions2 = array(
-    '3' => t('Mexico, Central and South America'),
-    '2' => t('Alabama'),
-    '3' => t('Alaska'),
-    '3' => t('Arizona'),
-    '2' => t('Arkansas '),
-    '3' => t('California'),
-    '2' => t('Colorado'),
-    '1' => t('Connecticut'),
-    '1' => t('Delaware'),
-    '3' => t('Florida'),
-    '2' => t('Georgia'),
-    '3' => t('Hawaii'),
-    '2' => t('Idaho'),
-    '1' => t('Illinois (Northern)'),
-    '2' => t('Illinois (Southern)'),
-    '1' => t('Indiana'),
-    '2' => t('Iowa'),
-    '2' => t('Kansas'),
-    '1' => t('Kentucky'),
-    '2' => t('Louisiana'),
-    '1' => t('Maine'),
-    '1' => t('Maryland'),
-    '1' => t('Massachusetts'),
-    '1' => t('Michigan'),
-    '1' => t('Minnesota'),
-    '2' => t('Mississippi'),
-    '2' => t('Missouri'),
-    '2' => t('Montana'),
-    '2' => t('Nebraska'),
-    '3' => t('Nevada'),
-    '1' => t('New Hampshire'),
-    '1' => t('New Jersey'),
-    '3' => t('New Mexico'),
-    '1' => t('New York'),
-    '2' => t('North Carolina'),
-    '1' => t('North Dakota'),
-    '1' => t('Ohio'),
-    '2' => t('Oklahoma'),
-    '3' => t('Oregon'),
-    '1' => t('Pennsylvania'),
-    '1' => t('Rhode Island'),
-    '2' => t('South Carolina'),
-    '1' => t('South Dakota'),
-    '2' => t('Tennessee'),
-    '3' => t('Texas'),
-    '2' => t('Utah'),
-    '1' => t('Vermont'),
-    '1' => t('Virginia'),
-    '3' => t('Washington'),
-    '1' => t('West Virginia'),
-    '1' => t('Wisconsin'),
-    '2' => t('Wyoming'),
+    '1_3' => t('Mexico, Central and South America'),
+    '2_2' => t('Alabama'),
+    '3_3' => t('Alaska'),
+    '4_3' => t('Arizona'),
+    '5_2' => t('Arkansas '),
+    '6_3' => t('California'),
+    '7_2' => t('Colorado'),
+    '8_1' => t('Connecticut'),
+    '9_1' => t('Delaware'),
+    '10_3' => t('Florida'),
+    '11_2' => t('Georgia'),
+    '12_3' => t('Hawaii'),
+    '13_2' => t('Idaho'),
+    '14_1' => t('Illinois (Northern)'),
+    '15_2' => t('Illinois (Southern)'),
+    '16_1' => t('Indiana'),
+    '17_2' => t('Iowa'),
+    '18_2' => t('Kansas'),
+    '19_1' => t('Kentucky'),
+    '20_2' => t('Louisiana'),
+    '21_1' => t('Maine'),
+    '22_1' => t('Maryland'),
+    '23_1' => t('Massachusetts'),
+    '24_1' => t('Michigan'),
+    '25_1' => t('Minnesota'),
+    '26_2' => t('Mississippi'),
+    '27_2' => t('Missouri'),
+    '28_2' => t('Montana'),
+    '29_2' => t('Nebraska'),
+    '30_3' => t('Nevada'),
+    '31_1' => t('New Hampshire'),
+    '32_1' => t('New Jersey'),
+    '33_3' => t('New Mexico'),
+    '34_1' => t('New York'),
+    '35_2' => t('North Carolina'),
+    '36_1' => t('North Dakota'),
+    '37_1' => t('Ohio'),
+    '38_2' => t('Oklahoma'),
+    '39_3' => t('Oregon'),
+    '40_1' => t('Pennsylvania'),
+    '41_1' => t('Rhode Island'),
+    '42_2' => t('South Carolina'),
+    '43_1' => t('South Dakota'),
+    '44_2' => t('Tennessee'),
+    '45_3' => t('Texas'),
+    '46_2' => t('Utah'),
+    '47_1' => t('Vermont'),
+    '48_1' => t('Virginia'),
+    '49_3' => t('Washington'),
+    '50_1' => t('West Virginia'),
+    '51_1' => t('Wisconsin'),
+    '52_2' => t('Wyoming'),
   );
 
-  $form['selected_region'] = array(
+  $regions3 = array(
+    '1_5' => t('Mexico, Central and South America'),
+    '2_4' => t('Alabama'),
+    '3_1' => t('Alaska'),
+    '4_2' => t('Arizona'),
+    '5_3' => t('Arkansas '),
+    '6_1' => t('California'),
+    '7_2' => t('Colorado'),
+    '8_4' => t('Connecticut'),
+    '9_4' => t('Delaware'),
+    '10_5' => t('Florida'),
+    '11_4' => t('Georgia'),
+    '12_1' => t('Hawaii'),
+    '13_1' => t('Idaho'),
+    '14_4' => t('Illinois'),
+    '15_4' => t('Indiana'),
+    '16_4' => t('Iowa'),
+    '17_3' => t('Kansas'),
+    '18_4' => t('Kentucky'),
+    '19_3' => t('Louisiana'),
+    '20_4' => t('Maine'),
+    '21_4' => t('Maryland'),
+    '22_4' => t('Massachusetts'),
+    '23_4' => t('Michigan'),
+    '24_4' => t('Minnesota'),
+    '25_4' => t('Mississippi'),
+    '26_4' => t('Missouri'),
+    '27_2' => t('Montana'),
+    '28_3' => t('Nebraska'),
+    '29_1' => t('Nevada'),
+    '30_4' => t('New Hampshire'),
+    '31_4' => t('New Jersey'),
+    '32_2' => t('New Mexico'),
+    '33_4' => t('New York'),
+    '34_4' => t('North Carolina'),
+    '35_2' => t('North Dakota'),
+    '36_4' => t('Ohio'),
+    '37_3' => t('Oklahoma'),
+    '38_1' => t('Oregon'),
+    '39_4' => t('Pennsylvania'),
+    '40_4' => t('Rhode Island'),
+    '41_4' => t('South Carolina'),
+    '42_2' => t('South Dakota'),
+    '43_4' => t('Tennessee'),
+    '44_3' => t('Texas'),
+    '45_2' => t('Utah'),
+    '46_4' => t('Vermont'),
+    '47_4' => t('Virginia'),
+    '48_1' => t('Washington'),
+    '49_4' => t('West Virginia'),
+    '50_4' => t('Wisconsin'),
+    '51_2' => t('Wyoming'),
+  );
+
+  $form['selected_region_1'] = array(
+   '#title' => t('Territory Rep Map'),
    '#type' => 'select',
-   '#title' => t('Select Region'),
-   '#options' => $regions2,
+   '#options' => $regions,
+   '#empty_option' => t('- Select region -'),
    '#description' => t('Select a region to view region contact.'),
+   '#attributes' => array(
+      'class' => array('mobile-only'),
+      'data-map' => array('1'),
+    ),
+   '#ajax' => array(
+      'callback' => 'dh_contact_map_form_map_ajax_submit',
+    ),
+  );
+
+  $form['selected_region_2'] = array(
+   '#type' => 'select',
+   '#title' => t('Mesker Inside Sales'),
+   '#options' => $regions2,
+   '#empty_option' => t('- Select region -'),
+   '#description' => t('Select a region to view region contact.'),
+   '#attributes' => array(
+      'class' => array('mobile-only'),
+      'data-map' => array('2'),
+    ),
+   '#ajax' => array(
+      'callback' => 'dh_contact_map_form_map_ajax_submit',
+    ),
+  );
+
+  $form['selected_region_3'] = array(
+   '#type' => 'select',
+   '#title' => t('HMX Inside Sales'),
+   '#options' => $regions3,
+   '#empty_option' => t('- Select region -'),
+   '#description' => t('Select a region to view region contact.'),
+   '#attributes' => array(
+      'class' => array('mobile-only'),
+      'data-map' => array('3'),
+    ),
+   '#ajax' => array(
+      'callback' => 'dh_contact_map_form_map_ajax_submit',
+    ),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Go'),
+    '#submit' => array('dh_contact_map_form_map_1_submit'),
+    '#attributes' => array('style' => 'display: none'),
   );
 
   return $form;
 }
 
 /**
- * Select form for Map 3.
+ * Ajax submit handler for form.
  */
-function dh_contact_map_form_map_3 () {
-  $form = array();
+function dh_contact_map_form_map_ajax_submit($form, $form_state) {
+  // Load js file.
+  drupal_add_js(drupal_get_path('module', 'dh_contact_map') . '/dh_contact_map.js');
 
-  $regions3 = array(
-    '5' => t('Mexico, Central and South America'),
-    '4' => t('Alabama'),
-    '1' => t('Alaska'),
-    '2' => t('Arizona'),
-    '3' => t('Arkansas '),
-    '1' => t('California'),
-    '2' => t('Colorado'),
-    '4' => t('Connecticut'),
-    '4' => t('Delaware'),
-    '5' => t('Florida'),
-    '4' => t('Georgia'),
-    '1' => t('Hawaii'),
-    '1' => t('Idaho'),
-    '4' => t('Illinois'),
-    '4' => t('Indiana'),
-    '4' => t('Iowa'),
-    '3' => t('Kansas'),
-    '4' => t('Kentucky'),
-    '3' => t('Louisiana'),
-    '4' => t('Maine'),
-    '4' => t('Maryland'),
-    '4' => t('Massachusetts'),
-    '4' => t('Michigan'),
-    '4' => t('Minnesota'),
-    '4' => t('Mississippi'),
-    '4' => t('Missouri'),
-    '2' => t('Montana'),
-    '3' => t('Nebraska'),
-    '1' => t('Nevada'),
-    '4' => t('New Hampshire'),
-    '4' => t('New Jersey'),
-    '2' => t('New Mexico'),
-    '4' => t('New York'),
-    '4' => t('North Carolina'),
-    '2' => t('North Dakota'),
-    '4' => t('Ohio'),
-    '3' => t('Oklahoma'),
-    '1' => t('Oregon'),
-    '4' => t('Pennsylvania'),
-    '4' => t('Rhode Island'),
-    '4' => t('South Carolina'),
-    '2' => t('South Dakota'),
-    '4' => t('Tennessee'),
-    '3' => t('Texas'),
-    '2' => t('Utah'),
-    '4' => t('Vermont'),
-    '4' => t('Virginia'),
-    '1' => t('Washington'),
-    '4' => t('West Virginia'),
-    '4' => t('Wisconsin'),
-    '2' => t('Wyoming'),
+  $values = $form_state['input'];
+  $map = $region = '';
+
+  if (!empty($values['selected_region_1'])) {
+    $map = 1;
+    $region = $values['selected_region_1'];
+  }
+  if (!empty($values['selected_region_2'])) {
+    $map = 2;
+    $region = $values['selected_region_2'];
+  }
+  if (!empty($values['selected_region_3'])) {
+    $map = 3;
+    $region = $values['selected_region_3'];
+  }
+
+  // Transform the region from 12_3 format to 3.
+  $region = explode('_', $region);
+  $region = array_pop($region);
+
+  // Get contacts from DB for current Map & Region.
+  $contacts = dh_contact_map_get_contacts_for_region($map, $region);
+
+  $commands[] = array (
+    'command' => 'showRegionContacts',
+    'regionContacts' => $contacts,
   );
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+/**
+ * Submit handler for dh_contact_map_form_map_1().
+ */
+function dh_contact_map_form_map_1_submit($form_id, &$form_state) {
+  $values = $form_state['values'];
+  $map = $region = '';
 
-  $form['selected_region'] = array(
-   '#type' => 'select',
-   '#title' => t('Select Region'),
-   '#options' => $regions3,
-   '#description' => t('Select a region to view region contact.'),
-  );
+  if (!empty($values['selected_region_1'])) {
+    $map = 1;
+    $region = $values['selected_region_1'];
+  }
+  if (!empty($values['selected_region_2'])) {
+    $map = 2;
+    $region = $values['selected_region_2'];
+  }
+  if (!empty($values['selected_region_3'])) {
+    $map = 3;
+    $region = $values['selected_region_3'];
+  }
 
-  return $form;
+  $region = explode('_', $region);
+  $region = array_pop($region);
+
+  // Get contacts from DB for current Map & Region.
+  $contacts = dh_contact_map_get_contacts_for_region($map, $region);
+
+  // Todo: show contact info somewhere on screen.
+  // This is for when javascript is disabled.
+  // Wasn't a requirement, but is an improvement.
 }
 
+/**
+ * Get contacts from database for a region and map.
+ *
+ * @param int $map
+ *   Integer that represents the map that should be searched against.
+ * @param int $region
+ *   The region from which to return contacts.
+ */
+function dh_contact_map_get_contacts_for_region($map, $region) {
+  $pdo = dh_contact_map_pdo_connection();
+
+  // $statement = "SELECT * FROM contacts WHERE map = :map AND region = :region";
+
+  $statement = "SELECT CONCAT(first_name, ' ',  last_name) as name, phone_number, email, region_manager, region_manager_phone, region_manager_email, agency, map, region FROM contacts  WHERE map = :map AND region = :region";
+  $stmt = $pdo->prepare($statement);
+  $stmt->bindParam(':map', $map, PDO::PARAM_STR);
+  $stmt->bindParam(':region', $region, PDO::PARAM_STR);
+  $stmt->execute();
+  $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+  return $results;
+}
 
 /**
  * Establish PDO connection with database.
  */
 function dh_contact_map_pdo_connection() {
-  $host = variable_get('db_host');
-  $port = variable_get('db_port');
-  $db_name = variable_get('db_name');
-  $db_user = variable_get('db_user');
-  $db_pass = variable_get('db_pass');
 
-  $dsn = 'mysql:dbname=' . $dbname . ';host=' . $host . ';port=' . $port ;
-
-  try {
-    $pdo = new PDO($dsn, $db_user, $db_pass);
-    return $pdo;
-  }
-  catch (PDOException $e) {
-    drupal_set_message(t('Could not connect to database'), 'error', FALSE);
-    watchdog('dh_contact_map', serialize($e), array(), WATCHDOG_ERROR);
-  }
 }
