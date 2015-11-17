@@ -1,0 +1,9 @@
+#contact-map #image-map {
+  display: block;
+}
+
+@media all and (max-width: 760px) {
+  #contact-map #image-map {
+    display: none;
+  }
+}
